@@ -56,7 +56,7 @@ def go_south(matrix):
         return matrix
     if (matrix[location.x][location.y + 1] == ' ' or matrix[location.x][location.y - 1] == ' ') and matrix[location.x + 1][location.y] != '#':
         location.set_stored_location()
-        #location.x += 1
+        location.x += 1
         return matrix
     elif matrix[location.x + 1][location.y] == '#':
         return matrix
@@ -100,7 +100,8 @@ def start(matrix):
             matrix = go_north(matrix)
             if matrix[location.x - 1][location.y] == '#' and matrix[location.x][location.y - 1] == '#' and matrix[location.x][location.y + 1] == '#':
                 matrix[location.x][location.y] = 'X'
-                location.get_stored_location()
+                if not (location.x == 0 and location.y == 3):
+                    location.get_stored_location()
         #recruse south
         elif location.x + 1 < location.max_x and matrix[location.x + 1][location.y] == ' ':
             matrix = go_south(matrix)

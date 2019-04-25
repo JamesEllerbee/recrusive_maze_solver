@@ -30,7 +30,8 @@ def parse_lines(f, matrix):
     return matrix
 
 def main():
-    f = open("mazeA.txt", "r")
+    fname = input("Please enter a maze file: ")
+    f = open(fname, "r")
     matrix = parse_list_size(f)
     matrix = parse_lines(f, matrix)
     f.close()
