@@ -9,11 +9,11 @@ def go_north(matrix):
     matrix[location.x][location.y] = 'N'
     if (matrix[location.x][location.y - 1] == ' ' or matrix[location.x][location.y + 1] == ' ') and matrix[location.x - 1][location.y] != '#':
         location.push_current_location()
-        location.x -= 1
+        #location.x -= 1
         return matrix
     if location.x - 1 > location.max_x:
         return matrix
-    elif matrix[location.x - 1][location.y] == '#':
+    elif matrix[location.x - 1][location.y] == '#' or (location.x == 0 and location.y == 3):
         return matrix
     else:
         location.log_path('N')
@@ -33,20 +33,18 @@ def go_east(matrix):
         return matrix
     elif matrix[location.x][location.y + 1] == '#':
         #branching updates location to go in a direction.
-        if matrix[location.x - 1][location.y] == ' ':
-            location.log_path('N')
-            location.x -= 1
-        else:
-            location.log_path('S')
-            location.x += 1
+        #if matrix[location.x - 1][location.y] == ' ':
+            #location.log_path('N')
+            #location.x -= 1
+        #else:
+            #location.log_path('S')
+            #location.x += 1
         return matrix
     else:
         location.log_path('E')
         location.y += 1
         location.count += 1
         return go_east(matrix)
-
-    return
 
 def go_south(matrix):
     matrix[location.x][location.y] = 'S'
@@ -57,6 +55,12 @@ def go_south(matrix):
         location.x += 1
         return matrix
     elif matrix[location.x + 1][location.y] == '#':
+        #if matrix[location.x][location.y - 1] == ' ':
+            #location.log_path('E')
+            #location.y -= 1
+        #else:
+            #location.log_path('W')
+            #location.y += 1
         return matrix
     else:
         location.log_path('S')
@@ -68,6 +72,12 @@ def go_west(matrix):
     matrix[location.x][location.y] = 'W'
     if (matrix[location.x + 1][location.y] == ' ' or matrix[location.x - 1][location.y] == ' ') and matrix[location.x][location.y - 1] != '#':
         location.push_current_location()
+        if matrix[location.x - 1][location.y] == ' ':
+            location.log_path('N')
+            location.x -= 1
+        else:
+            #ocation.log_path('S')
+            location.x += 1
         #location.y -= 1
         return matrix
     if location.y - 1 > location.max_y:
@@ -97,12 +107,14 @@ def start(matrix):
     result = ''
     while not solved:
         #recurse north
-        print("move %i" % location.count)
+        print("Move %i" % location.count)
         if location.x - 1 > 0 and matrix[location.x - 1][location.y] == ' ':
             matrix = go_north(matrix)
             if matrix[location.x - 1][location.y] == '#' and matrix[location.x][location.y - 1] == '#' and matrix[location.x][location.y + 1] == '#':
                 matrix[location.x][location.y] = 'X'
-                if not (location.x == 1 and location.y == 3):
+                maze_printer.print_matrix(matrix)
+                print(location.to_string_properties())
+                if not(location.x == 0 and location.y == 3):
                     location.pop_stored_location()
         #recruse south
         elif location.x + 1 < location.max_x and matrix[location.x + 1][location.y] == ' ':
@@ -124,8 +136,7 @@ def start(matrix):
                 matrix[location.x][location.y] = 'X'
                 location.pop_stored_location()
         maze_printer.print_matrix(matrix)
-        #print(location.to_string_properties())
-        print("\n\n\n\n")
+        print(location.to_string_properties())
         input("Press Enter to continue...")
         location.count += 1
         results = canFinish(matrix)

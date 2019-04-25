@@ -47,8 +47,9 @@ def push_current_location():
 def pop_stored_location():
     '''function handles setting the current x and y to the last element in the stored_locations list'''
     global x, y, stored_locations
-    orderedPair = stored_locations.pop()
-    x = orderedPair[0]
-    y = orderedPair[1]
+    if(len(stored_locations) > 0):
+        orderedPair = stored_locations.pop()
+        x = orderedPair[0]
+        y = orderedPair[1]
 
 
