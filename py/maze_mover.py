@@ -112,8 +112,8 @@ def start(matrix):
             matrix = go_north(matrix)
             if matrix[location.x - 1][location.y] == '#' and matrix[location.x][location.y - 1] == '#' and matrix[location.x][location.y + 1] == '#':
                 matrix[location.x][location.y] = 'X'
-                maze_printer.print_matrix(matrix)
-                print(location.to_string_properties())
+                #maze_printer.print_matrix(matrix)
+                #print(location.to_string_properties())
                 if not(location.x == 0 and location.y == 3):
                     location.pop_stored_location()
         #recruse south
@@ -136,7 +136,7 @@ def start(matrix):
                 matrix[location.x][location.y] = 'X'
                 location.pop_stored_location()
         maze_printer.print_matrix(matrix)
-        print(location.to_string_properties())
+        #print(location.to_string_properties())
         input("Press Enter to continue...")
         location.count += 1
         results = canFinish(matrix)
