@@ -1,6 +1,6 @@
-'''
-solver.py contains logic for reading in maze file and setting up the maze matrix
-'''
+#Author: James Ellerbee
+#Project Purpose: Exercise Recursion and code design
+'''solver.py contains logic for reading in maze file, setting up the maze matrix, and calling maze mover.py'''
 import maze_mover
 import maze_printer
 
@@ -35,5 +35,8 @@ def main():
     matrix = parse_list_size(f)
     matrix = parse_lines(f, matrix)
     f.close()
+    print("Using the maze in: " + fname)
+    maze_printer.print_matrix(matrix)
+    print()
     maze_printer.print_matrix(maze_mover.start(matrix))
 main()
